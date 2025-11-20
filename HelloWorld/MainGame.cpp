@@ -8,12 +8,14 @@ void MainGameEntry( PLAY_IGNORE_COMMAND_LINE )
 {
 	Play::CreateManager( DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_SCALE );
 	SpawnBall();
+	SetupScene();
 }
 
 // Called by PlayBuffer every frame (60 times a second!)
 bool MainGameUpdate( float elapsedTime )
 {
-	Play::ClearDrawingBuffer( Play::cBlack );
+	Play::ClearDrawingBuffer( Play::cMagenta );
+	StepFrame(elapsedTime);
 	Play::PresentDrawingBuffer();
 	return Play::KeyDown( KEY_ESCAPE );
 }

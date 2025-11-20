@@ -5,10 +5,65 @@
 
 void SpawnBall()
 {
-	const int objectId = Play::CreateGameObject(ObjectType::TYPE_BALL, { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT - 60 }, 4, "ball");
+	const int objectId = Play::CreateGameObject(ObjectType::TYPE_BALL, { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT - 280 }, 4, "ball2");
+
+	GameObject& ball = Play::GetGameObject(objectId);
+	ball.velocity = normalize({ 1, -1 }) * ballSpeed;
+
 }
 
 void StepFrame(float timeSinceLastStep)
 {
 	const std::vector<int> ballIds = Play::CollectGameObjectIDsByType(TYPE_BALL);
+
+	for (int i = 0; i < (ballIds.size()); i++)
+	{
+		int currentId = ballIds[i];
+		Play::UpdateGameObject(Play::GetGameObject(currentId));
+		if (Play::GetGameObject(currentId).pos.x > DISPLAY_WIDTH || Play::GetGameObject(currentId).pos.x < 0)
+		{
+			Play::GetGameObject(currentId).velocity.x = -Play::GetGameObject(currentId).velocity.x;
+		}
+		if (Play::GetGameObject(currentId).pos.y > DISPLAY_HEIGHT || Play::GetGameObject(currentId).pos.y < 0)
+		{
+			Play::GetGameObject(currentId).velocity.y = -Play::GetGameObject(currentId).velocity.y;
+		}
+		Play::DrawObject(Play::GetGameObject(currentId));
+	}
+
+	const std::vector<int> brickIds = Play::CollectGameObjectIDsByType(TYPE_BRICK);
+	for (int i = 0; i < (brickIds.size()); i++)
+	{
+		int currentId = brickIds[i];
+		Play::UpdateGameObject(Play::GetGameObject(currentId));
+		Play::DrawObject(Play::GetGameObject(currentId));
+	}
+
+	for (int i = 0; i < ballIds.size(); i++)
+	{
+		int currentBall = ballIds[i];
+		for (int i = 0; i < brickIds.size(); i++)
+		{
+			int currentBrick = brickIds[i];
+			if (Play::IsColliding(Play::GetGameObject(currentBall), Play::GetGameObject(currentBrick)))
+			{
+				Play::DestroyGameObject(currentBrick);
+				Play::GetGameObject(currentBall).velocity = -Play::GetGameObject(currentBall).velocity;
+			}
+		}
+	}
+}
+
+void SetupScene()
+{
+
+	for (int row = 1; row <= 6; row++)
+	{
+		for (int col = 1; col <= 35; col++)
+		{
+			int x = startX + col * (brickWidth + gap);
+			int y = DISPLAY_HEIGHT - (startY + (row + 1) * (brickHeight + gap));
+			Play::CreateGameObject(ObjectType::TYPE_BRICK, { x, y }, 6, "brick2");
+		}
+	}
 }

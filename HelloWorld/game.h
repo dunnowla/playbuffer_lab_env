@@ -3,11 +3,10 @@
 #include "Play.h"
 #include "constants.h"
 
-#ifndef MyFunction
-#define MyFunction
 
 void SpawnBall();
 
 void StepFrame(float timeSinceLastStep);
 
-#endif //MyFunctions
+void SetupScene();
+

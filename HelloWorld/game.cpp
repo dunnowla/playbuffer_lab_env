@@ -57,9 +57,9 @@ void StepFrame(float timeSinceLastStep)
 void SetupScene()
 {
 
-	for (int row = 1; row <= 6; row++)
+	for (int row = 1; row <= 8; row++)
 	{
-		for (int col = 1; col <= 35; col++)
+		for (int col = 1; col <= 37; col++)
 		{
 			int x = startX + col * (brickWidth + gap);
 			int y = DISPLAY_HEIGHT - (startY + (row + 1) * (brickHeight + gap));

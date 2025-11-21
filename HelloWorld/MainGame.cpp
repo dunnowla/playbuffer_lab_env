@@ -15,7 +15,7 @@ void MainGameEntry( PLAY_IGNORE_COMMAND_LINE )
 // Called by PlayBuffer every frame (60 times a second!)
 bool MainGameUpdate( float elapsedTime )
 {
-	Play::ClearDrawingBuffer( Play::cMagenta );
+	Play::ClearDrawingBuffer( Play::cBlack );
 	StepFrame(elapsedTime);
 	Play::PresentDrawingBuffer();
 	return Play::KeyDown( KEY_ESCAPE );

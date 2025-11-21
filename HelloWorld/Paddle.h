@@ -2,8 +2,13 @@
 
 struct Paddle
 {
-	float xPos = 5;
-	float yPos = 5;
+	float xPos = 320;
+	float yPos = 35;
 };
 
-void DrawPaddle(Paddle& paddle);
+extern Paddle paddle;
+
+
+
+void DrawPaddle(const Paddle& paddle);
+void UpdatePaddle(Paddle& paddle);

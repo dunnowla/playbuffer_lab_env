@@ -2,6 +2,7 @@
 #define PLAY_USING_GAMEOBJECT_MANAGER
 #include "Play.h"
 #include "game.h"
+#include "Paddle.h"
 
 void SpawnBall()
 {
@@ -52,6 +53,9 @@ void StepFrame(float timeSinceLastStep)
 			}
 		}
 	}
+
+	DrawPaddle(paddle);
+	UpdatePaddle(paddle);
 }
 
 void SetupScene()
@@ -66,4 +70,11 @@ void SetupScene()
 			Play::CreateGameObject(ObjectType::TYPE_BRICK, { x, y }, 6, "brick2");
 		}
 	}
+}
+
+void IsColliding(const Paddle& paddle, const GameObject& obj)
+{
+	//const float dx = obj.pos.x - Max(topLeftX, Min(obj.pos.x, bottomRightX));
+	//const float dy = obj.pos.y - Max(paddleTopLeft.y, Min(obj.pos.y, paddleBottomRight.y));
+	//return (dx * dx + dy * dy) < (obj.radius * obj.radius);
 }
